@@ -1,4 +1,4 @@
-﻿namespace FuberApps.Model
+﻿namespace FuberApps.Domain
 {
     public class Location
     {

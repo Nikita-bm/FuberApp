@@ -1,13 +1,13 @@
-﻿namespace FuberApps.Model
+﻿namespace FuberApps.Domain
 {
     public class CustomerService
     {
-        public Car Car { get; set; }
+        public Cab Cab { get; set; }
         public Customer Customer { get; set; }
 
-        public CustomerService(Car car,Customer customer)
+        public CustomerService(Cab Cab,Customer customer)
         {
-            Car = car;
+            Cab = Cab;
             Customer = customer;
         }
     }

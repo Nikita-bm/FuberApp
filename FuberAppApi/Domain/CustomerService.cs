@@ -1,4 +1,5 @@
-﻿
+﻿using System.Linq;
+
 namespace FuberAppApi.Domain
 {
     public class CustomerService
@@ -15,12 +16,12 @@ namespace FuberAppApi.Domain
             Db.customers.Add(newCustomer);
 
             return newCustomer;
-
         }
 
         public void RemoveCustomer(Customer customer)
         {
-            Db.customers.Remove(customer);
+            var registredcustomer = Db.customers.FirstOrDefault(cust => cust.Id == customer.Id);
+            Db.customers.Remove(registredcustomer);
         }
-}
+    }
 }

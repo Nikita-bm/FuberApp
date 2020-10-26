@@ -1,28 +1,35 @@
 ﻿using FuberAppApi.Domain;
-using FuberApps.Domain;
+using FuberAppApi.Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FuberAppApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/fuber")]
     [ApiController]
     public class FuberController : ControllerBase
     {
-       
         [HttpPost]
+        [Route("book-ride")]
         public ActionResult<Cab> BookARide(Customer customer)
         {
-            CustomerService customerService = new CustomerService();
-            var newCustomer = customerService.RegisterCustomer(customer);
+            try
+            {
+                CustomerService customerService = new CustomerService();
+                var registeredCustomer = customerService.RegisterCustomer(customer);
 
-            CabService cabService = new CabService();
-            var identifiedCab= cabService.AssignClosestAvailableCab(customer);
+                CabService cabService = new CabService();
+                var identifiedCab = cabService.AssignClosestAvailableCab(registeredCustomer);
 
-
-            return identifiedCab; //error if no cab identified 
+                return Ok(identifiedCab);
+            }
+            catch (CabNotFoundException)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPost]
+        [Route("end-ride")]
         public ActionResult EndRide(Cab cab, Customer customer)
         {
             CabService cabService = new CabService();
@@ -30,10 +37,7 @@ namespace FuberAppApi.Controllers
 
             CustomerService customerService = new CustomerService();
             customerService.RemoveCustomer(customer);
-            return null;
-                
-           
+            return Ok();
         }
-
     }
 }

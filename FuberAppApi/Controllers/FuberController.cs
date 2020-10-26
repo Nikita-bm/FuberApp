@@ -1,4 +1,4 @@
-﻿using FuberApps.Model;
+﻿using FuberApps.Domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FuberAppApi.Controllers
@@ -11,9 +11,9 @@ namespace FuberAppApi.Controllers
         [HttpPost]
         public ActionResult<string> BookRide(Customer customer)
         {
-          //Get available cars based on  closest location
+          //Get available Cabs based on  closest location
 
-            //Assign cars
+            //Assign Cabs
         }
 
         [HttpPost]

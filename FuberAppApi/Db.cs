@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using FuberApps.Domain;
+﻿using FuberAppApi.Domain;
+using System.Collections.Generic;
 
 namespace FuberAppApi
 {

@@ -1,19 +1,26 @@
-﻿namespace FuberApps.Domain
+﻿
+namespace FuberAppApi.Domain
 {
     public class CustomerService
     {
-        public Cab Cab { get; set; }
-        public Customer Customer { get; set; }
-
-        public CustomerService(Cab Cab,Customer customer)
+        public Customer RegisterCustomer(Customer customer)
         {
-            Cab = Cab;
-            Customer = customer;
+            Customer newCustomer = new Customer()
+            {
+                Id = Db.customers.Count + 1,
+                Drop = customer.Drop,
+                PickUp = customer.PickUp
+            };
+
+            Db.customers.Add(newCustomer);
+
+            return newCustomer;
+
         }
 
-        public bool AssignCars(Customer customer , Cab car)
+        public void RemoveCustomer(Customer customer)
         {
-            return false;
+            Db.customers.Remove(customer);
         }
-    }
+}
 }

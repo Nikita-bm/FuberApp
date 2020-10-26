@@ -1,4 +1,5 @@
-﻿using FuberApps.Domain;
+﻿using FuberAppApi.Domain;
+using FuberApps.Domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FuberAppApi.Controllers
@@ -9,18 +10,29 @@ namespace FuberAppApi.Controllers
     {
        
         [HttpPost]
-        public ActionResult<string> BookRide(Customer customer)
+        public ActionResult<Cab> BookARide(Customer customer)
         {
-            //Get available Cabs based on  closest location
+            CustomerService customerService = new CustomerService();
+            var newCustomer = customerService.RegisterCustomer(customer);
 
-            //Assign Cabs
-            return null;
+            CabService cabService = new CabService();
+            var identifiedCab= cabService.AssignClosestAvailableCab(customer);
+
+
+            return identifiedCab; //error if no cab identified 
         }
 
         [HttpPost]
-        public ActionResult<string> StopRide(Customer customer)
+        public ActionResult EndRide(Cab cab, Customer customer)
         {
-            return "value";
+            CabService cabService = new CabService();
+            cabService.UpdateCabLocation(cab, customer);
+
+            CustomerService customerService = new CustomerService();
+            customerService.RemoveCustomer(customer);
+            return null;
+                
+           
         }
 
     }

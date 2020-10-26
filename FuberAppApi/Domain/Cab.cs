@@ -1,4 +1,4 @@
-﻿namespace FuberApps.Domain
+﻿namespace FuberAppApi.Domain
 {
     public class Cab
     {

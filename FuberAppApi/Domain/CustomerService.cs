@@ -11,9 +11,9 @@
             Customer = customer;
         }
 
-        public bool AssignCars(Customer customer , Car car)
+        public bool AssignCars(Customer customer , Cab car)
         {
-
+            return false;
         }
     }
 }

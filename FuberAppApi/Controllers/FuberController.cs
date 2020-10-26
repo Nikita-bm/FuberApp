@@ -11,9 +11,10 @@ namespace FuberAppApi.Controllers
         [HttpPost]
         public ActionResult<string> BookRide(Customer customer)
         {
-          //Get available Cabs based on  closest location
+            //Get available Cabs based on  closest location
 
             //Assign Cabs
+            return null;
         }
 
         [HttpPost]

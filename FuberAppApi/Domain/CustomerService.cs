@@ -10,5 +10,10 @@
             Cab = Cab;
             Customer = customer;
         }
+
+        public bool AssignCars(Customer customer , Car car)
+        {
+
+        }
     }
 }

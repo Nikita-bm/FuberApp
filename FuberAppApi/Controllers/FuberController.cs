@@ -8,6 +8,11 @@ namespace FuberAppApi.Controllers
     [ApiController]
     public class FuberController : ControllerBase
     {
+        /// <summary>
+        /// Book a ride
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("book-ride")]
         public ActionResult<Ride> BookARide(Customer customer)
@@ -25,6 +30,11 @@ namespace FuberAppApi.Controllers
             }
         }
 
+        /// <summary>
+        /// End a ride
+        /// </summary>
+        /// <param name="ride"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("end-ride")]
         public ActionResult<string> EndRide(Ride ride)

@@ -5,29 +5,35 @@ namespace FuberAppApi.Domain
 {
     public class CabService
     {
-        public Cab AssignClosestAvailableCab(Customer customer) 
+        public Cab AssignClosestAvailableCab(Customer customer)
         {
             // TODO: Test
-            var cab =  Db.Cabs
+            var cab = Db.Cabs
                      .Where(x => !x.IsCabHired && (x.IsPinkCab == customer.BookPinkCab || customer.BookPinkCab == null))
-                     .OrderBy(x => Location.GetDistance(x.Location, customer.PickUp)) // Something else? O(n) >
+                     .OrderBy(x => Location.GetDistance(x.Location, customer.PickUpLocation)) // Something else? O(n) >
                      .FirstOrDefault();
 
             if (cab == null)
-            {
                 throw new CabNotFoundException();
-            }
 
             cab.IsCabHired = true;
-            cab.Location = customer.PickUp;
+            cab.Location = customer.PickUpLocation;
             return cab;
+        }
+
+        public void EndRide(Cab cab, Customer customer)
+        {
+            UpdateCabLocation(cab, customer);
+
+            var customerService = new CustomerService();
+            customerService.RemoveCustomer(customer);
         }
 
         public void UpdateCabLocation(Cab cab, Customer customer)
         {
-            var bookedCab = Db.Cabs.FirstOrDefault(cab => cab.Id == cab.Id);
+            var bookedCab = Db.Cabs.First(c => c.Id == cab.Id);
             bookedCab.IsCabHired = false;
-            bookedCab.Location = customer.Drop;
+            bookedCab.Location = customer.DropLocation;
         }
     }
 }

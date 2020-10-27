@@ -9,8 +9,8 @@ namespace FuberAppApi.Domain
             Customer newCustomer = new Customer()
             {
                 Id = Db.customers.Count + 1,
-                Drop = customer.Drop,
-                PickUp = customer.PickUp
+                DropLocation = customer.DropLocation,
+                PickUpLocation = customer.PickUpLocation
             };
 
             Db.customers.Add(newCustomer);

@@ -14,10 +14,10 @@ namespace FuberAppApi.Controllers
         {
             try
             {
-                CustomerService customerService = new CustomerService();
+                var customerService = new CustomerService();
                 var registeredCustomer = customerService.RegisterCustomer(customer);
 
-                CabService cabService = new CabService();
+                var cabService = new CabService();
                 var identifiedCab = cabService.AssignClosestAvailableCab(registeredCustomer);
 
                 return Ok(identifiedCab);
@@ -32,11 +32,8 @@ namespace FuberAppApi.Controllers
         [Route("end-ride")]
         public ActionResult EndRide(Cab cab, Customer customer)
         {
-            CabService cabService = new CabService();
-            cabService.UpdateCabLocation(cab, customer);
-
-            CustomerService customerService = new CustomerService();
-            customerService.RemoveCustomer(customer);
+            var cabService = new CabService();
+            cabService.EndRide(cab, customer);
             return Ok();
         }
     }

@@ -3,8 +3,8 @@
     public class Customer
     {
         public int Id { get; set; }
-        public Location PickUp { get; set; }
-        public Location Drop { get; set; }
+        public Location PickUpLocation { get; set; }
+        public Location DropLocation { get; set; }
         public bool? BookPinkCab { get; set; } = null;
     }
 }

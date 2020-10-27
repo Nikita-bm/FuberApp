@@ -12,10 +12,7 @@ namespace FuberAppApi.Domain
 
             var registeredCustomer = Db.Customers.First(c => c.Id == customer.Id);
 
-            var cab = Db.Cabs
-                     .Where(x => !x.IsCabHired && (x.IsPinkCab == customer.BookPinkCab))
-                     .OrderBy(x => Location.GetDistance(x.Location, customer.PickUpLocation)) // Something else? O(n) >
-                     .FirstOrDefault();
+            var cab = FetchNearestCab(registeredCustomer);
 
             if (cab == null)
                 throw new CabNotFoundException();
@@ -36,6 +33,8 @@ namespace FuberAppApi.Domain
            return ride;
         }
 
+
+       
         public string EndRide(Ride ride)
         {
             var currentRide = Db.Rides.First(x => x.Id == ride.Id);
@@ -78,6 +77,27 @@ namespace FuberAppApi.Domain
             return estimatedFare;
 
 
+        }
+
+        private Cab FetchNearestCab(Customer customer)
+        {
+            var availableCabs =
+                       Db.Cabs
+                       .Where(x => !x.IsCabHired && (x.IsPinkCab == customer.BookPinkCab || customer.BookPinkCab == null));
+
+
+            var shortestDistance = double.MaxValue;
+            var cab = (Cab)null;
+            foreach (var availableCab in availableCabs)
+            {
+                var distance = Location.GetDistance(availableCab.Location, customer.PickUpLocation);
+                if (distance < shortestDistance)
+                {
+                    shortestDistance = distance;
+                    cab = availableCab;
+                }
+            }
+            return cab;
         }
     }
 }

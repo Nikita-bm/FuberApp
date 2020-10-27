@@ -13,13 +13,16 @@ namespace FuberAppApi
             new Cab {Id=4, Location = new Location {Latitude=4, Longitude=8}}
         };
 
-        public static List<Customer> customers = new List<Customer>
+        public static List<Customer> Customers = new List<Customer>
         {
-            new Customer {Id=1},
+            new Customer {Id=1,BookPinkCab = true},
             new Customer {Id=2},
-            new Customer {Id=3},
+            new Customer {Id=3,BookPinkCab = true},
             new Customer {Id=4},
             new Customer {Id=5},
         };
+
+        public static List<Ride> Rides = new List<Ride>();
+
     }
 }

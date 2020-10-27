@@ -10,15 +10,12 @@ namespace FuberAppApi.Controllers
     {
         [HttpPost]
         [Route("book-ride")]
-        public ActionResult<Cab> BookARide(Customer customer)
+        public ActionResult<Ride> BookARide(Customer customer)
         {
             try
             {
-                var customerService = new CustomerService();
-                var registeredCustomer = customerService.RegisterCustomer(customer);
-
                 var cabService = new CabService();
-                var identifiedCab = cabService.AssignClosestAvailableCab(registeredCustomer);
+                var identifiedCab = cabService.AssignClosestAvailableCab(customer);
 
                 return Ok(identifiedCab);
             }
@@ -30,11 +27,11 @@ namespace FuberAppApi.Controllers
 
         [HttpPost]
         [Route("end-ride")]
-        public ActionResult EndRide(Cab cab, Customer customer)
+        public ActionResult<string> EndRide(Ride ride)
         {
             var cabService = new CabService();
-            cabService.EndRide(cab, customer);
-            return Ok();
+            var estimatedFare = cabService.EndRide(ride);
+            return Ok(estimatedFare);
         }
     }
 }

@@ -8,20 +8,20 @@ namespace FuberAppApi.Domain
         {
             Customer newCustomer = new Customer()
             {
-                Id = Db.customers.Count + 1,
+                Id = Db.Customers.Count + 1,
                 DropLocation = customer.DropLocation,
                 PickUpLocation = customer.PickUpLocation
             };
 
-            Db.customers.Add(newCustomer);
+            Db.Customers.Add(newCustomer);
 
             return newCustomer;
         }
 
         public void RemoveCustomer(Customer customer)
         {
-            var registredcustomer = Db.customers.FirstOrDefault(cust => cust.Id == customer.Id);
-            Db.customers.Remove(registredcustomer);
+            var registredcustomer = Db.Customers.FirstOrDefault(cust => cust.Id == customer.Id);
+            Db.Customers.Remove(registredcustomer);
         }
     }
 }
